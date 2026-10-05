@@ -1,0 +1,20 @@
+# SAMPLE DATA - MADE-UP NUMBERS FOR DEMONSTRATION ONLY. NOT REAL RIDERSHIP.
+# Shows the shape the cleaned data will take: one row per station, operator, year.
+# Real data source: MLIT dataset S12 (nlftp.mlit.go.jp), replaced in Phase 2.
+# passengers = average daily passengers (made up)
+station	operator	line	year	passengers
+Shinjuku	JR East	Chuo Line	2019	1000000
+Shinjuku	JR East	Chuo Line	2020	600000
+Shinjuku	JR East	Chuo Line	2024	850000
+Shinjuku	Keio	Keio Line	2019	500000
+Shinjuku	Keio	Keio Line	2020	300000
+Shinjuku	Keio	Keio Line	2024	420000
+Shibuya	JR East	Yamanote Line	2019	700000
+Shibuya	JR East	Yamanote Line	2020	400000
+Shibuya	JR East	Yamanote Line	2024	610000
+Ikebukuro	JR East	Yamanote Line	2019	800000
+Ikebukuro	JR East	Yamanote Line	2020	500000
+Ikebukuro	JR East	Yamanote Line	2024	690000
+Tokyo	JR East	Tokaido Line	2019	600000
+Tokyo	JR East	Tokaido Line	2020	300000
+Tokyo	JR East	Tokaido Line	2024	520000
