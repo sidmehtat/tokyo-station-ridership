@@ -1,6 +1,9 @@
 # SAMPLE DATA - MADE-UP NUMBERS FOR DEMONSTRATION ONLY. NOT REAL RIDERSHIP.
 # Shows the shape the cleaned data will take: one row per station, operator, year.
-# Real data source: MLIT dataset S12 (nlftp.mlit.go.jp), replaced in Phase 2.
+# Used to work out which functions the calculations need (reading and splitting the
+# file, station totals, recovery %, ranking, year-to-year change) before running
+# them on the real data.
+# Real data source: MLIT dataset S12 (nlftp.mlit.go.jp), used by scripts/ and explore.py.
 # passengers = average daily passengers (made up)
 station	operator	line	year	passengers
 Shinjuku	JR East	Chuo Line	2019	1000000

@@ -1,31 +1,32 @@
 # Tokyo Station Ridership Analysis
 
-Has Shinjuku recovered from the pandemic, and how does it compare with the rest of Tokyo's 10 busiest stations? This project answers that with Japan's official station passenger counts (2011 to 2024), using Python, SQL and PostgreSQL.
+Siddharth Mehta
 
-> **Status: work in progress.** The file in `data/sample/` holds made-up example numbers that show the data's shape. The real results will replace it as each phase is finished.
+## Aim
 
-## Phases
+To find out whether Shinjuku Station has recovered from the COVID-19 pandemic, and how its recovery compares with the rest of Tokyo's 10 busiest stations.
 
-| Phase | What it does | Status |
-|---|---|---|
-| 1. Get the data | Download MLIT dataset S12 (station passenger counts) and read its field codes | Done |
-| 2. Clean it | Reshape to one row per station, operator and year; keep Tokyo only; drop duplicate-coded rows | In progress |
-| 3. Build the database | PostgreSQL tables `stations`, `operators`, `ridership`, loaded from CSV | Not started |
-| 4. Write the SQL | Total each station per year, rank by 2019, recovery = 2024 / 2019 x 100 | Not started |
-| 5. Make the charts | Bar chart of recovery for the top 10; Shinjuku line chart 2011 to 2024 | Not started |
-| 6. Write it up | Findings in this README | Not started |
+## Data source
 
-## Data notes
+All data comes from the Japanese government's open data service:
 
-- Source: [MLIT National Land Numerical Information, S12](https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-S12-2024.html).
-- Each year has a duplicate code. Only rows coded 1 ("recorded at this line's station") are counted, so riders shared between lines aren't counted twice.
-- Station names are Japanese in the source; charts use English names.
+- **Dataset:** National Land Numerical Information, Station Passenger Counts (国土数値情報 駅別乗降客数データ), dataset code S12
+- **Publisher:** Ministry of Land, Infrastructure, Transport and Tourism (MLIT), Japan
+- **Link:** https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-S12-2024.html
+- **File used:** `S12-25_NumberOfPassengers.geojson`, from the download `S12-25_GML.zip`, stored in `rawData/`
+- **Contents:** average daily passengers for every station in Japan, fiscal years 2011 to 2024, as reported by each rail company
 
-## How to run
+Credit: 「国土数値情報（駅別乗降客数データ）」（国土交通省）を加工して作成 (created by processing MLIT's Station Passenger Counts data).
 
-```bash
-python3 -m venv .venv
-.venv/bin/pip install pandas matplotlib psycopg2-binary
-```
+`cleanedData/ridership_sample.txt` contains made-up numbers, used only to plan the calculations. No results come from it.
 
-More steps will be added as each phase is finished.
+## Method
+
+1. **Clean** (`codingFiles/clean.py`): keep only stations inside a box around central Tokyo, remove counts the dataset marks as duplicates (riders already counted under another line) or as missing, and save the rest to `cleanedData/tokyo_ridership.txt`.
+2. **Calculate** (`codingFiles/calculations.py`):
+   - add up every rail line at each station for each year
+   - rank stations by their 2019 total and keep the top 10
+   - recovery = 2024 passengers ÷ 2019 passengers × 100
+   - pandemic drop = change from 2019 to 2020
+   - leave out of the recovery figures any line whose count jumps more than 30% in a single year outside the pandemic years (2020 to 2022), repeats the previous year's count, or is missing 2019 or 2024, since these point to a change in how the company counts riders
+3. **Display** (`codingFiles/main.py`): a numbered menu where the user picks a question and the answer is printed.
